@@ -1,94 +1,55 @@
-import Image from "next/image";
 import styles from "./page.module.css";
+import Vaga from '@/components/Vaga/Vaga';
+import Sensor from '@/components/Sensor/Sensor'; 
+import { VagaModel } from '@/models/VagaModel';
+
+const vagas: VagaModel[] = [
+  { numero: 1, estaOcupada: false },
+  { numero: 2, estaOcupada: true },
+  { numero: 3, estaOcupada: false },
+  { numero: 4, estaOcupada: true },
+  { numero: 5, estaOcupada: false },
+  { numero: 6, estaOcupada: true },
+  { numero: 7, estaOcupada: false },
+  { numero: 8, estaOcupada: true },
+  { numero: 9, estaOcupada: false },
+  { numero: 10, estaOcupada: true },
+];
+
+const contarVagas = (vagas: VagaModel[]) => {
+  let quantidadeOcupados = 0;
+  let quantidadeLivres = 0;
+  
+  vagas.forEach((vagas) => {
+    if (vagas.estaOcupada) quantidadeOcupados++;
+    else quantidadeLivres++;
+  });
+
+  return { quantidadeOcupados, quantidadeLivres };
+};
+
+const { quantidadeOcupados, quantidadeLivres } = contarVagas(vagas);
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+        <div className={styles.bloco}>
+          {vagas.map((vaga) => (
+            <Vaga key={vaga.numero} vaga={vaga} />
+          ))}
+        </div>
+
+        <div>
+          <br />
+          <Sensor estaAtivo={false} /> <p>Vagas Livres: {quantidadeOcupados}</p>
+
+          <Sensor estaAtivo={true} /> <p>Vagas Ocupadas: {quantidadeLivres}</p>
         </div>
       </main>
+
       <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
       </footer>
     </div>
   );

@@ -1,0 +1,14 @@
+.sensor {
+    width: 15px;
+    height: 15px;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+
+.ativado {
+    background-color: red;
+}
+
+.desativado {
+    background-color: rgb(51, 223, 28);
+}
